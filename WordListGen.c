@@ -25,7 +25,7 @@
 #define  NO 0
 #define YES 1
 
-void printHelp(void);
+void printHelp(void); 
 
 int main (int argc, char **argv){
 	char     areaCode[8];
