@@ -1,5 +1,5 @@
 /*****************************LICENSE***********************************\
-	This program is free software: you can redistribute it and/or modify
+    This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License.
 
@@ -25,6 +25,11 @@
 #define  NO 0
 #define YES 1
 
+extern char *optarg;
+extern int optind, opterr, optopt;
+
+#include <getopt.h>
+
 void printHelp(void); 
 
 int main (int argc, char **argv){
@@ -45,41 +50,41 @@ int main (int argc, char **argv){
 	
 	//Look at any options that have been passed in
 	while ((c = getopt (argc, argv, "hvo:c:")) != -1){
-         switch (c){
-         	case 'h':
-         		needsPrintHelp = 1;
-         		break;
+		switch (c){
+			case 'h':
+				needsPrintHelp = 1;
+				break;
          		
-         	case 'v':
-         		verbose = 1;
-         		break;
+			case 'v':
+				verbose = 1;
+				break;
          		
-         	case 'o':
-         		output = optarg;
-         		break;
+			case 'o':
+				output = optarg;
+				break;
          		
-         	case 'c':
-         		config = optarg;
-         		break;
+			case 'c':
+				config = optarg;
+				break;
          	
-         	case '?':
-         		if (optopt == 'o'){
+			case '?':
+				if (optopt == 'o'){
+					printf("Option -%c requires an argument.\n", optopt);
+					exit(1);
+				}
+				else if (optopt == 'c'){
                		printf("Option -%c requires an argument.\n", optopt);
                		exit(1);
-               	}
-               	else if (optopt == 'c'){
-               		printf("Option -%c requires an argument.\n", optopt);
-               		exit(1);
-               	}
-             	else if (optopt){
+				}
+				else if (optopt){
                		printf("Unknown option `-%c'.\n", optopt);
                		exit(1);
-               	}
+				}
                		
-               	needsPrintHelp = 1;
-         		break;
-         }
-    }
+				needsPrintHelp = 1;
+				break;
+		}
+	}
 	
 	if(needsPrintHelp){
 		printHelp();
